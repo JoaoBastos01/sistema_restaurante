@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+{% block title %}Novo Pedido | BrewStack{% endblock %}
+
+{% block content %}
+  <section class="section-novo-pedido">
+    <div class="container">
+      <h2 class="section-title">Faça Seu Pedido</h2>
+
+      {# Exibe mensagens flash de erro ou sucesso #}
+      {% with mensagens = get_flashed_messages(with_categories=true) %}
+        {% if mensagens %}
+          <div class="flash-messages">
+            {% for categoria, texto in mensagens %}
+              <div class="alert alert-{{ categoria }}">{{ texto }}</div>
+            {% endfor %}
+          </div>
+        {% endif %}
+      {% endwith %}
+
+      <form action="{{ url_for('main.novo_pedido') }}" method="POST" class="form-pedido">
+        {# Exemplo de cliente_id fixo (por enquanto),
+           depois você substitui por input / sessão do usuário logado #}
+        <input type="hidden" name="cliente_id" value="1">
+
+        <table class="pedido-table">
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>Descrição</th>
+              <th>Preço (R$)</th>
+              <th>Quantidade</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for item in itens %}
+              <tr>
+                <td>{{ item.nome }}</td>
+                <td>
+                  {% if item.descricao %}
+                    {{ item.descricao }}
+                  {% else %}
+                    —
+                  {% endif %}
+                </td>
+                <td>{{ '%.2f'|format(item.preco) }}</td>
+                <td>
+                  {# Um input type=number para quantidade #}
+                  <input 
+                    type="number" 
+                    name="quantidade_{{ item.id }}" 
+                    min="0" 
+                    value="0" 
+                    class="input-quantidade"
+                  >
+                  {# Precisamos passar o item_id também, para sabermos quais inputs ler  #}
+                  <input type="hidden" name="item_id" value="{{ item.id }}">
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary">Enviar Pedido</button>
+          <a href="{{ url_for('main.cardapio') }}" class="btn btn-secondary">Cancelar</a>
+        </div>
+      </form>
+    </div>
+  </section>
+{% endblock %}

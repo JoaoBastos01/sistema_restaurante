@@ -1,0 +1,926 @@
+/* app/static/css/style.css */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    color: #333;
+}
+
+.navbar {
+    width: 100%;
+    background-color: #ffffff;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.container-nav {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 1.5rem;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.logo-nav {
+    width: 30px;
+    /* tamanho do logo na navbar */
+    height: auto;
+    margin-right: 0.5rem;
+}
+
+.logo-text {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #222;
+}
+
+.menu {
+    list-style: none;
+    display: flex;
+    gap: 1.5rem;
+}
+
+.menu li a {
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #222;
+    transition: color 0.2s ease;
+}
+
+.menu li a:hover {
+    color: #a35a2b;
+}
+
+/* Botão de menu “hamburger” – escondido por padrão em desktop */
+.navbar-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 28px;
+    height: 21px;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.navbar-toggle .bar {
+    display: block;
+    width: 100%;
+    height: 3px;
+    background-color: #222;
+    border-radius: 3px;
+}
+
+.hero {
+    position: relative;
+    width: 100%;
+    height: calc(100vh - 80px);
+    /* mantém a altura total menos a navbar */
+    background: url('../img/hero.jpg') center center/cover no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    /* Aumentamos a opacidade para escurecer mais o fundo */
+    background-color: rgba(0, 0, 0, 0.65);
+}
+
+.hero-content {
+    position: relative;
+    text-align: center;
+    color: #ffffff;
+    max-width: 90%;
+    z-index: 2;
+}
+
+.hero-title {
+    font-size: 3rem;
+    /* aumentei um pouco para ficar mais impactante */
+    font-weight: 800;
+    /* deixei mais “bold” */
+    letter-spacing: 2px;
+    margin-bottom: 1rem;
+    /* sombra sutil para contorno escuro, reforçando a legibilidade */
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
+}
+
+.hero-subtitle {
+    font-size: 1.3rem;
+    margin-bottom: 2rem;
+    /* mesma sombra para criar contorno no subtítulo */
+    text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.7);
+}
+
+.btn-hero {
+    display: inline-block;
+    padding: 0.75rem 1.75rem;
+    background-color: #a35a2b;
+    color: #fff;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 600;
+    border-radius: 4px;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+    /* leve animação para enfatizar o botão */
+}
+
+.btn-hero:hover {
+    background-color: #823f1f;
+    transform: translateY(-2px);
+}
+
+main {
+    padding-top: 80px;
+    padding-bottom: 1rem;
+    /* altura aproximada da navbar + algum espaçamento */
+}
+
+.footer {
+    background-color: #222222;
+    color: #f1f1f1;
+    padding: 2rem 0;
+    margin-top: 2rem;
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    gap: 2rem;
+    /* Você pode manter space-between, ou usar space-evenly/space-around conforme quiser
+       justify-content: space-between; 
+    */
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding: 0 1.5rem;
+}
+
+/* ================= CENTRALIZAR SEÇÕES ================= */
+.footer-secao {
+    flex: 1 1 200px;
+    /* ocupa no mínimo 200px e expande igualmente */
+    /* centraliza todo o conteúdo dentro de cada coluna */
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+/* ================= ESTILO DO LOGO NO FOOTER ================= */
+.footer-logo {
+    width: 30px;
+    /* ajuste o tamanho conforme desejar */
+    height: auto;
+    vertical-align: middle;
+    /* garante que fique alinhado ao texto */
+    margin-right: 0.5rem;
+    /* um espaço entre a img e “BrewStack” */
+}
+
+/* Se quiser estilizar o texto do brand especificamente: */
+.footer-brand {
+    display: inline-flex;
+    align-items: center;
+    /* alinha verticalmente img e texto */
+    color: #ffffff;
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+}
+
+/* Cabeçalhos e parágrafos do footer (ajuste caso queira override) */
+.footer-secao h3,
+.footer-secao h4 {
+    color: #ffffff;
+    margin-bottom: 0.75rem;
+}
+
+.footer-secao p {
+    font-size: 0.95rem;
+    line-height: 1.4rem;
+}
+
+/* Listas de links no footer */
+.footer-secao ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-secao ul li {
+    margin-bottom: 0.5rem;
+}
+
+.footer-secao ul li a {
+    color: #f1f1f1;
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: color 0.2s ease;
+}
+
+.footer-secao ul li a:hover {
+    color: #a35a2b;
+}
+
+.redes-sociais {
+    display: flex;
+    flex-direction: column;
+    /* Empilha cada item verticalmente */
+    align-items: center;
+    /* Centraliza itens dentro da coluna */
+    gap: 0.75rem;
+    /* Espaçamento vertical entre cada link */
+    padding: 0;
+    margin: 0;
+}
+
+.redes-sociais li {
+    list-style: none;
+}
+
+.redes-sociais li a {
+    display: inline-flex;
+    /* Alinha ícone e texto horizontalmente */
+    align-items: center;
+    gap: 0.5rem;
+    /* Espaço entre ícone e texto */
+    color: #f1f1f1;
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.redes-sociais li a i {
+    font-size: 1.1rem;
+    /* Tamanho do ícone Font Awesome */
+    color: #f1f1f1;
+    transition: color 0.2s ease;
+}
+
+.redes-sociais li a:hover {
+    color: #a35a2b;
+    transform: scale(1.02);
+}
+
+.redes-sociais li a:hover i {
+    color: #a35a2b;
+}
+
+/* ========================================================
+   6. OUTROS ELEMENTOS (Formulários, Botões)
+   ======================================================== */
+/* 6.1. Campos de formulário */
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+}
+
+/* 6.2. Botões (classe genérica e variação “primary”) */
+.btn {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    font-weight: 600;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+    min-width: 120px;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.btn-primary {
+    background-color: #a35a2b;
+    color: #ffffff;
+}
+
+.btn-primary:hover {
+    background-color: #823f1f;
+}
+
+@media (max-width: 992px) {
+
+    /* Hero: diminuir tamanho de fonte do título e subtítulo */
+    .hero-title {
+        font-size: 2.5rem;
+    }
+
+    .hero-subtitle {
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 768px) {
+
+    /* Navbar: botão hamburger aparece, menu em linha some */
+    .menu {
+        display: none;
+        position: absolute;
+        /* Menu “flutua” abaixo da navbar */
+        top: 100%;
+        /* Logo + toggle ocupam 100% da altura do nav */
+        left: 0;
+        width: 100%;
+        background-color: #ffffff;
+        flex-direction: column;
+        gap: 1rem;
+        padding: 1rem 1.5rem;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .menu.open {
+        display: flex;
+        /* Exibe o menu quando a classe “open” é aplicada */
+    }
+
+    .navbar-toggle {
+        display: flex;
+        /* Mostra o botão hamburger em telas pequenas */
+    }
+
+    /* Hero: altura dinâmica e ajustes de espaçamento e fonte */
+    .hero {
+        height: auto;
+        /* Torna a altura dinâmica conforme conteúdo */
+        padding: 3rem 1rem;
+        /* Espaçamento vertical adicional */
+    }
+
+    .hero-title {
+        font-size: 2rem;
+        margin-bottom: 0.75rem;
+    }
+
+    .hero-subtitle {
+        font-size: 1rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .btn-hero {
+        width: 100%;
+        /* Botão ocupa toda largura possível */
+        max-width: 300px;
+        /* Evita que fique muito largo */
+        padding: 0.75rem 0;
+        /* Padding horizontal reduzido */
+        text-align: center;
+    }
+
+    /* Footer: colunas empilham verticalmente com espaçamentos maiores */
+    .footer-container {
+        flex-direction: column;
+        gap: 2rem;
+        /* Espaçamento maior entre colunas empilhadas */
+    }
+
+    .footer-secao {
+        margin-bottom: 1.5rem;
+        /* Espaço extra abaixo de cada seção */
+    }
+
+    .redes-sociais {
+        gap: 1rem;
+        /* Espaçamento vertical maior entre itens */
+    }
+
+    /* Botões: ocupam 100% da largura até um max-width */
+    .btn {
+        width: 100%;
+        max-width: 300px;
+        margin: 0 auto 1rem auto;
+        /* Centraliza e adiciona margem abaixo */
+    }
+
+    @media (min-width: 768px) {
+
+        /* Campos de formulário não ocupam 100% em desktops, limitamos o width */
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            max-width: 400px;
+            /* Evita campos muito largos em telas grandes */
+        }
+    }
+
+    /* ========================================================
+   Estilos para a seção Cardápio
+   ======================================================== */
+
+    /* Container geral de cada seção (já usado em outros lugares) */
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 1.5rem;
+    }
+
+    /* Título da seção */
+    .section-title {
+        font-size: 2rem;
+        font-weight: 700;
+        text-align: center;
+        margin-bottom: 2rem;
+        color: #222222;
+    }
+
+    /* Mensagem de “sem itens” */
+    .empty-message {
+        text-align: center;
+        font-size: 1.1rem;
+        color: #555555;
+        margin-top: 2rem;
+    }
+
+    /* ===== Grid de itens ===== */
+    .grid-cardapio {
+        display: grid;
+        gap: 2rem;
+        /* Em desktop, 3 colunas; notebook médio, 2; mobile, 1 */
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    }
+
+    /* Cada card de item */
+    .card-item {
+        background-color: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .card-item:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+    }
+
+    /* Imagem do item (caso exista) */
+    .card-img {
+        width: 100%;
+        height: 150px;
+        object-fit: cover;
+    }
+
+    /* Corpo do card */
+    .card-body {
+        padding: 1rem;
+        flex: 1;
+        /* faz o card-body ocupar espaço para empurrar o botão */
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+
+    /* Nome do item */
+    .item-nome {
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: #222222;
+        margin-bottom: 0.5rem;
+    }
+
+    /* Descrição */
+    .item-desc {
+        font-size: 0.95rem;
+        color: #555555;
+        margin-bottom: 1rem;
+        flex: 1;
+        /* faz a descrição “empurrar” o botão para baixo se for longa */
+    }
+
+    /* Preço */
+    .item-preco {
+        font-size: 1rem;
+        font-weight: 700;
+        color: #a35a2b;
+        margin-bottom: 1rem;
+    }
+
+    /* Botão “Pedir” */
+    .btn-card {
+        display: inline-block;
+        padding: 0.5rem 1rem;
+        background-color: #a35a2b;
+        color: #ffffff;
+        text-decoration: none;
+        font-size: 0.95rem;
+        font-weight: 600;
+        text-align: center;
+        border-radius: 4px;
+        transition: background-color 0.2s ease;
+    }
+
+    .btn-card:hover {
+        background-color: #823f1f;
+    }
+
+    /* ========================================================
+   Responsividade adicional para Cardápio
+   ======================================================== */
+    @media (max-width: 768px) {
+        .section-title {
+            font-size: 1.75rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .card-img {
+            height: 120px;
+        }
+
+        .item-nome {
+            font-size: 1.1rem;
+        }
+
+        .item-preco {
+            font-size: 0.95rem;
+        }
+
+        .btn-card {
+            font-size: 0.9rem;
+            padding: 0.5rem 0.75rem;
+        }
+    }
+
+    .section-novo-pedido {
+        padding: 2rem 0;
+    }
+
+    .form-pedido {
+        width: 100%;
+        overflow-x: auto;
+        /* caso a tabela fique maior que a tela no mobile */
+    }
+
+    .pedido-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 2rem;
+    }
+
+    .pedido-table th,
+    .pedido-table td {
+        border: 1px solid #dddddd;
+        padding: 0.75rem 1rem;
+        text-align: left;
+        vertical-align: middle;
+    }
+
+    .pedido-table th {
+        background-color: #f9f9f9;
+        font-weight: 600;
+        color: #222222;
+    }
+
+    .input-quantidade {
+        width: 60px;
+        padding: 0.25rem;
+        font-size: 1rem;
+        text-align: center;
+        border: 1px solid #cccccc;
+        border-radius: 4px;
+    }
+
+    .form-actions {
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+        justify-content: flex-start;
+    }
+
+    .form-actions .btn-secondary {
+        background-color: #cccccc;
+        color: #222222;
+    }
+
+    .form-actions .btn-secondary:hover {
+        background-color: #aaaaaa;
+    }
+
+    /* Flash messages */
+    .flash-messages {
+        margin-bottom: 1.5rem;
+    }
+
+    .alert {
+        padding: 0.75rem 1rem;
+        border-radius: 4px;
+        margin-bottom: 0.5rem;
+        font-size: 0.95rem;
+    }
+
+    .alert-error {
+        background-color: #f8d7da;
+        color: #842029;
+        border: 1px solid #f5c2c7;
+    }
+
+    .alert-success {
+        background-color: #d1e7dd;
+        color: #0f5132;
+        border: 1px solid #badbcc;
+    }
+
+    /* ========================================================
+   Responsividade para “Novo Pedido”
+   ======================================================== */
+    @media (max-width: 768px) {
+
+        .pedido-table th,
+        .pedido-table td {
+            padding: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .input-quantidade {
+            width: 50px;
+        }
+
+        .form-actions {
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        .form-actions .btn {
+            width: 100%;
+            text-align: center;
+        }
+    }
+
+    .section-painel-admin {
+        padding: 2rem 0;
+    }
+
+    .filtro-status {
+        margin-bottom: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+    }
+
+    .filtro-status label {
+        font-size: 1rem;
+        font-weight: 500;
+        color: #222222;
+    }
+
+    .filtro-status select {
+        padding: 0.5rem 0.75rem;
+        font-size: 1rem;
+        border: 1px solid #cccccc;
+        border-radius: 4px;
+    }
+
+    .admin-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 2rem;
+    }
+
+    .admin-table th,
+    .admin-table td {
+        border: 1px solid #dddddd;
+        padding: 0.75rem 1rem;
+        text-align: left;
+        vertical-align: middle;
+    }
+
+    .admin-table th {
+        background-color: #f9f9f9;
+        font-weight: 600;
+        color: #222222;
+    }
+
+    .status-novo {
+        color: #0d6efd;
+        font-weight: 600;
+    }
+
+    .status-em_preparo {
+        color: #ffc107;
+        font-weight: 600;
+    }
+
+    .status-pronto {
+        color: #198754;
+        font-weight: 600;
+    }
+
+    .status-entregue {
+        color: #6c757d;
+        font-weight: 600;
+    }
+
+    .status-cancelado {
+        color: #dc3545;
+        font-weight: 600;
+    }
+
+    /* Botões na tabela */
+    .btn-table {
+        display: inline-block;
+        padding: 0.4rem 0.8rem;
+        font-size: 0.85rem;
+        border-radius: 4px;
+        border: none;
+        cursor: pointer;
+        text-decoration: none;
+        color: #ffffff;
+        transition: background-color 0.2s ease;
+    }
+
+    .btn-info {
+        background-color: #0d6efd;
+    }
+
+    .btn-info:hover {
+        background-color: #0b5ed7;
+    }
+
+    .btn-success {
+        background-color: #198754;
+    }
+
+    .btn-success:hover {
+        background-color: #157347;
+    }
+
+    .btn-danger {
+        background-color: #dc3545;
+    }
+
+    .btn-danger:hover {
+        background-color: #bb2d3b;
+    }
+
+    /* Formularios inline (troca de status e cancelar) */
+    .form-troca-status,
+    .form-cancelar {
+        display: inline-block;
+    }
+
+    /* ========================================================
+   Responsividade para Painel Admin
+   ======================================================== */
+    @media (max-width: 768px) {
+        .section-painel-admin {
+            padding: 1.5rem 1rem;
+        }
+
+        .admin-table th,
+        .admin-table td {
+            padding: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .filtro-status {
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        .filtro-status select {
+            margin-top: 0.5rem;
+        }
+
+        .btn-table {
+            padding: 0.5rem 0.75rem;
+            font-size: 0.8rem;
+        }
+    }
+
+    .section-detalhes-pedido {
+        padding: 2rem 0;
+    }
+
+    .pedido-info {
+        background-color: #ffffff;
+        border-radius: 8px;
+        padding: 1.5rem;
+        margin-bottom: 2rem;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    }
+
+    .pedido-info p {
+        margin-bottom: 0.75rem;
+        font-size: 1rem;
+    }
+
+    .itens-pedido-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 2rem;
+    }
+
+    .itens-pedido-table th,
+    .itens-pedido-table td {
+        border: 1px solid #dddddd;
+        padding: 0.75rem 1rem;
+        text-align: left;
+        vertical-align: middle;
+    }
+
+    .itens-pedido-table th {
+        background-color: #f9f9f9;
+        font-weight: 600;
+        color: #222222;
+    }
+
+    .logs-pedido {
+        margin-top: 2rem;
+    }
+
+    .logs-pedido h4 {
+        font-size: 1.25rem;
+        color: #222222;
+        margin-bottom: 1rem;
+    }
+
+    .logs-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .logs-list li {
+        padding: 0.5rem 0;
+        border-bottom: 1px solid #eeeeee;
+        font-size: 0.95rem;
+    }
+
+    .logs-list .log-data {
+        font-weight: 600;
+        color: #555555;
+    }
+
+    .logs-list .log-acao {
+        color: #333333;
+    }
+
+    .voltar-painel {
+        margin-top: 2rem;
+    }
+
+    /* Botão voltar (estilo “secondary”) */
+    .btn-secondary {
+        background-color: #cccccc;
+        color: #222222;
+    }
+
+    .btn-secondary:hover {
+        background-color: #aaaaaa;
+    }
+
+    /* ========================================================
+   Responsividade para Detalhes do Pedido
+   ======================================================== */
+    @media (max-width: 768px) {
+        .section-detalhes-pedido {
+            padding: 1.5rem 1rem;
+        }
+
+        .pedido-info p {
+            font-size: 0.95rem;
+        }
+
+        .itens-pedido-table th,
+        .itens-pedido-table td {
+            padding: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .logs-pedido h4 {
+            font-size: 1.1rem;
+        }
+
+        .logs-list li {
+            font-size: 0.9rem;
+            padding: 0.4rem 0;
+        }
+    }
+
+}

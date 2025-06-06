@@ -1,0 +1,106 @@
+{# app/templates/base.html #}
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}BrewStack{% endblock %}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512‐xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <!-- Link para seu CSS principal -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+</head>
+
+<body>
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="container-nav">
+            <a href="{{ url_for('main.index') }}" class="logo">
+                <img src="{{ url_for('static', filename='img/logo-black.png') }}" class="logo-nav" alt="Logo BrewStack">
+                <span class="logo-text">BREWSTACK</span>
+            </a>
+
+            <!-- Botão hamburger que só aparece em telas pequenas -->
+            <button class="navbar-toggle" aria-label="Abrir menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
+
+            <!-- Menu de navegação (desktop e mobile) -->
+            <ul class="menu">
+                <li><a href="{{ url_for('main.index') }}">Home</a></li>
+                <li><a href="#">Sobre nós</a></li>
+                <li><a href="#">Login</a></li>
+                <li><a href="#">Registrar</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- ESPAÇO PARA O CONTEÚDO ESPECÍFICO DE CADA PÁGINA -->
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+
+    <!-- Você pode adicionar aqui scripts JS se quiser, por enquanto está vazio -->
+    {% block scripts %}
+    <script>
+        const toggleButton = document.querySelector('.navbar-toggle');
+        const menu = document.querySelector('.menu');
+
+        toggleButton.addEventListener('click', () => {
+            menu.classList.toggle('open');
+        });
+    </script>
+    {% endblock %}
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-secao">
+                <h3 class="footer-brand">
+                    <img src="{{ url_for('static', filename='img/logo-white.png') }}" alt="Logo BrewStack"
+                        class="footer-logo">
+                    BrewStack
+                </h3>
+                <p>© 2025 BrewStack. Todos os direitos reservados.</p>
+            </div>
+            <div class="footer-secao">
+                <h4>Navegação</h4>
+                <ul>
+                    <li><a href="{{ url_for('main.index') }}">Home</a></li>
+                    <li><a href="#">Sobre Nós</a></li>
+                    <li><a href="{{ url_for('main.cardapio') }}">Cardápio</a></li>
+                    <li><a href="#">Contato</a></li>
+                </ul>
+            </div>
+            <div class="footer-secao">
+                <h4>Siga-nos</h4>
+                <ul class="redes-sociais">
+                    <li>
+                        <a href="https://www.facebook.com/seuPerfil" target="_blank" title="Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                            <span>Facebook</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://www.instagram.com/seuPerfil" target="_blank" title="Instagram">
+                            <i class="fab fa-instagram"></i>
+                            <span>Instagram</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://twitter.com/seuPerfil" target="_blank" title="Twitter">
+                            <i class="fab fa-twitter"></i>
+                            <span>Twitter</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

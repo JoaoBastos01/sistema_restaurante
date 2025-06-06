@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+
+{% block title %}Detalhes do Pedido #{{ pedido.id }} | BrewStack{% endblock %}
+
+{% block content %}
+  <section class="section-detalhes-pedido">
+    <div class="container">
+      <h2 class="section-title">
+        Detalhes do Pedido #{{ pedido.id }}
+      </h2>
+
+      {# Exibe mensagens flash #}
+      {% with mensagens = get_flashed_messages(with_categories=true) %}
+        {% if mensagens %}
+          <div class="flash-messages">
+            {% for categoria, texto in mensagens %}
+              <div class="alert alert-{{ categoria }}">{{ texto }}</div>
+            {% endfor %}
+          </div>
+        {% endif %}
+      {% endwith %}
+
+      {# Dados gerais do pedido #}
+      <div class="pedido-info">
+        <p><strong>Cliente:</strong> {{ pedido.cliente_nome }}</p>
+        <p><strong>Data/Hora:</strong> {{ pedido.data_hora.strftime('%d/%m/%Y %H:%M') }}</p>
+        <p>
+          <strong>Status:</strong>
+          <span class="status-{{ pedido.status }}">
+            {{ pedido.status.replace('_',' ')|capitalize }}
+          </span>
+        </p>
+        <p><strong>Total:</strong> R$ {{ '%.2f'|format(pedido.total) }}</p>
+      </div>
+
+      {# Tabela de itens do pedido #}
+      <table class="itens-pedido-table">
+        <thead>
+          <tr>
+            <th>Item</th>
+            <th>Preço Unitário (R$)</th>
+            <th>Quantidade</th>
+            <th>Subtotal (R$)</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for it in itens %}
+            <tr>
+              <td>{{ it.item_nome }}</td>
+              <td>{{ '%.2f'|format(it.preco_unitario) }}</td>
+              <td>{{ it.quantidade }}</td>
+              <td>{{ '%.2f'|format(it.preco_unitario * it.quantidade) }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+      {# Histórico de logs #}
+      <div class="logs-pedido">
+        <h4>Histórico de Ações</h4>
+        {% if logs|length == 0 %}
+          <p class="empty-message">Nenhum log encontrado para este pedido.</p>
+        {% else %}
+          <ul class="logs-list">
+            {% for log in logs %}
+              <li>
+                <span class="log-data">{{ log.data_hora.strftime('%d/%m/%Y %H:%M') }}</span>
+                – <span class="log-acao">{{ log.acao }}</span>
+              </li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+      </div>
+
+      {# Botão para voltar ao painel #}
+      <div class="voltar-painel">
+        <a href="{{ url_for('main.painel_admin') }}" class="btn btn-secondary">
+          ‹ Voltar ao Painel
+        </a>
+      </div>
+    </div>
+  </section>
+{% endblock %}

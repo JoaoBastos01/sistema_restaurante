@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+
+{% block title %}Painel Admin | BrewStack{% endblock %}
+
+{% block content %}
+  <section class="section-painel-admin">
+    <div class="container">
+      <h2 class="section-title">Painel Administrativo</h2>
+
+      {# Filtro rápido de status #}
+      <form method="GET" action="{{ url_for('main.painel_admin') }}" class="filtro-status">
+        <label for="status">Exibir pedidos com status:</label>
+        <select name="status" id="status" onchange="this.form.submit()">
+          {% set opcoes = ['novo', 'em_preparo', 'pronto', 'entregue', 'cancelado'] %}
+          {% for opc in opcoes %}
+            <option value="{{ opc }}" {% if status_atual == opc %}selected{% endif %}>
+              {{ opc.replace('_', ' ')|capitalize }}
+            </option>
+          {% endfor %}
+        </select>
+      </form>
+
+      {# Caso não haja pedidos no status filtrado #}
+      {% if pedidos|length == 0 %}
+        <p class="empty-message">Não há pedidos com status “{{ status_atual.replace('_',' ') }}”.</p>
+      {% else %}
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>Cliente</th>
+              <th>Data/Hora</th>
+              <th>Total (R$)</th>
+              <th>Status</th>
+              <th>Ações</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for ped in pedidos %}
+              <tr>
+                <td>{{ ped.id }}</td>
+                <td>{{ ped.cliente_nome }}</td>
+                <td>{{ ped.data_hora.strftime('%d/%m/%Y %H:%M') }}</td>
+                <td>{{ '%.2f'|format(ped.total) }}</td>
+                <td class="status-{{ ped.status }}">{{ ped.status.replace('_',' ')|capitalize }}</td>
+                <td>
+                  {# Link para mudar status (mutex de transições permitidas em rota /trocar_status) #}
+                  <a 
+                    href="{{ url_for('main.detalhes_pedido', pedido_id=ped.id) }}" 
+                    class="btn-table btn-info"
+                  >
+                    Detalhes
+                  </a>
+
+                  {# Botões para trocar de status (Exemplo simples: próximo e cancelar) #}
+                  {% if ped.status != 'entregue' and ped.status != 'cancelado' %}
+                    <form 
+                      action="{{ url_for('main.trocar_status_pedido') }}" 
+                      method="POST" 
+                      class="form-troca-status"
+                      style="display:inline-block;"
+                    >
+                      <input type="hidden" name="pedido_id" value="{{ ped.id }}">
+                      {# Botão “Próximo Status” (você pode gerar dinamicamente conforme lógica) #}
+                      <input type="hidden" name="novo_status" value="{{ 'entregue' if ped.status == 'pronto' else 'pronto' }}">
+                      <button type="submit" class="btn-table btn-success">
+                        {% if ped.status == 'novo' %}Iniciar Preparação{% elif ped.status == 'em_preparo' %}Marcar como Pronto{% else %}Entregar{% endif %}
+                      </button>
+                    </form>
+
+                    {# Botão “Cancelar Pedido” #}
+                    <form 
+                      action="{{ url_for('main.cancelar_pedido') }}" 
+                      method="POST" 
+                      class="form-cancelar" 
+                      style="display:inline-block; margin-left: 0.5rem;"
+                    >
+                      <input type="hidden" name="pedido_id" value="{{ ped.id }}">
+                      <button type="submit" class="btn-table btn-danger">
+                        Cancelar
+                      </button>
+                    </form>
+                  {% endif %}
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      {% endif %}
+    </div>
+  </section>
+{% endblock %}

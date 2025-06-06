@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}Cardápio | BrewStack{% endblock %}
+
+{% block content %}
+  <section class="section-cardapio">
+    <div class="container">
+      <h2 class="section-title">Nosso Cardápio</h2>
+
+      {# Se não houver itens para exibir, mostramos uma mensagem #}
+      {% if itens|length == 0 %}
+        <p class="empty-message">Desculpe, ainda não há itens cadastrados no cardápio.</p>
+      {% else %}
+        <div class="grid-cardapio">
+          {# Loop pelos itens vindos do banco de dados #}
+          {% for item in itens %}
+            <div class="card-item">
+              {# Se cada item_cardapio tiver campo 'imagem_url', podemos exibir uma foto #}
+              {% if item.imagem_url %}
+                <img src="{{ item.imagem_url }}" alt="{{ item.nome }}" class="card-img">
+              {% endif %}
+              <div class="card-body">
+                <h3 class="item-nome">{{ item.nome }}</h3>
+                {% if item.descricao %}
+                  <p class="item-desc">{{ item.descricao }}</p>
+                {% endif %}
+                <p class="item-preco">R$ {{ '%.2f'|format(item.preco) }}</p>
+                <a href="{{ url_for('main.novo_pedido') }}?item_id={{ item.id }}" class="btn-card">Pedir</a>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+  </section>
+{% endblock %}
