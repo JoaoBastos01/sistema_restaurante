@@ -1,8 +1,5 @@
-
-DROP SCHEMA public CASCADE;
-CREATE SCHEMA public;
-GRANT ALL ON SCHEMA public TO postgres;
-GRANT ALL ON SCHEMA public TO public;
+DROP DATABASE IF EXISTS restaurante ON DELETE CASCADE;
+CREATE DATABASE restaurante;
 
 CREATE TABLE usuarios (
     id SERIAL PRIMARY KEY,
