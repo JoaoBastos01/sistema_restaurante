@@ -1,8 +1,10 @@
-
-DROP SCHEMA public CASCADE;
-CREATE SCHEMA public;
-GRANT ALL ON SCHEMA public TO postgres;
-GRANT ALL ON SCHEMA public TO public;
+DROP TABLE usuarios;
+DROP TABLE itens_cardapio;
+DROP TABLE estoque;
+DROP TABLE status_pedidos;
+DROP TABLE pedidos;
+DROP TABLE itens_pedido;
+DROP TABLE logs;
 
 CREATE TABLE usuarios (
     id SERIAL PRIMARY KEY,
@@ -196,6 +198,7 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
+DROP TRIGGER IF EXISTS trg_log_cancelamento ON pedidos;
 CREATE TRIGGER trg_log_cancelamento
 AFTER UPDATE ON pedidos
 FOR EACH ROW

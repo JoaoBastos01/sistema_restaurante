@@ -2,18 +2,11 @@
 
 from flask import Blueprint, render_template, request, redirect, url_for, flash
 import json
-import psycopg2
-from psycopg2 import extras
+from psycopg2.extras import DictCursor
+from app.db import get_db
 
 main_bp = Blueprint('main', __name__)
 
-def conectar():
-    return psycopg2.connect(
-        dbname='restaurante',
-        user='postgres',
-        password='1234',
-        host='localhost'
-    )
 
 # ← ROTA PARA A PÁGINA INICIAL (HERÓI)
 @main_bp.route('/')
@@ -24,21 +17,19 @@ def index():
 # ← ROTA EXISTENTE: LISTAR CARDÁPIO
 @main_bp.route('/cardapio')
 def cardapio():
-    # Supondo que aqui você já tenha lógica para buscar itens do cardápio
-    conn = conectar()
-    cur = conn.cursor(cursor_factory=extras.DictCursor)
-    cur.execute("SELECT * FROM itens_cardapio ORDER BY nome")
-    itens = cur.fetchall()
-    cur.close()
-    conn.close()
+    conn = get_db()
+    with conn.cursor(cursor_factory=DictCursor) as cur:
+        cur.execute("SELECT * FROM itens_cardapio ORDER BY nome")
+        itens = cur.fetchall()
+
     return render_template('cardapio.html', itens=itens)
 
 
 # ← ROTA EXISTENTE: CRIAR NOVO PEDIDO
 @main_bp.route('/novo_pedido', methods=['GET', 'POST'])
 def novo_pedido():
-    conn = conectar()
-    cur = conn.cursor(cursor_factory=extras.DictCursor)
+    conn = get_db()
+    cur = conn.cursor(cursor_factory=DictCursor)
 
     if request.method == 'POST':
         try:
@@ -101,7 +92,7 @@ def painel_admin():
     # Exemplo: aceita querystring ?status=em preparo
     status_filtro = request.args.get('status', 'em_preparo')
     conn = conectar()
-    cur = conn.cursor(cursor_factory=extras.DictCursor)
+    cur = conn.cursor(cursor_factory=DictCursor)
     cur.execute("SELECT * FROM listar_pedidos(%s);", (status_filtro,))  
     # listar_pedidos pode ser a função/stored procedure que retorna pedidos por status
     pedidos = cur.fetchall()
@@ -112,7 +103,7 @@ def painel_admin():
 @main_bp.route('/detalhes_pedido/<int:pedido_id>')
 def detalhes_pedido(pedido_id):
     conn = conectar()
-    cur = conn.cursor(cursor_factory=extras.DictCursor)
+    cur = conn.cursor(cursor_factory=DictCursor)
 
     # 1) Buscar dados básicos do pedido (JOIN com cliente, tabela pedidos)
     cur.execute("""
