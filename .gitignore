@@ -12,3 +12,7 @@ env/
 .vscode/
 *.swp
 *.swo
+
+README.md
+
+requirements.txt
